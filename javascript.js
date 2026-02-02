@@ -43,6 +43,26 @@
         const userInfo = document.getElementById('userInfo');
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
+
+        // Helper: ensure per-user carts and sync to shared keys
+        function ensureUserCarts(email) {
+            const keySimple = `simpleCart_${email}`;
+            const keyFull = `beautyBloomCart_${email}`;
+            if (!localStorage.getItem(keySimple)) localStorage.setItem(keySimple, JSON.stringify([]));
+            if (!localStorage.getItem(keyFull)) localStorage.setItem(keyFull, JSON.stringify([]));
+        }
+
+        function syncUserCartsToShared(email) {
+            const keySimple = `simpleCart_${email}`;
+            const keyFull = `beautyBloomCart_${email}`;
+            localStorage.setItem('simpleCart', localStorage.getItem(keySimple) || JSON.stringify([]));
+            localStorage.setItem('beautyBloomCart', localStorage.getItem(keyFull) || JSON.stringify([]));
+        }
+
+        function clearSharedCarts() {
+            localStorage.setItem('simpleCart', JSON.stringify([]));
+            localStorage.setItem('beautyBloomCart', JSON.stringify([]));
+        }
         
         // Initialize simple wishlist
         function initSimpleWishlist() {
@@ -125,12 +145,30 @@
 
         // Cart helpers
         function getSimpleCart() {
-            return JSON.parse(localStorage.getItem('simpleCart')) || [];
+            const user = JSON.parse(localStorage.getItem('beautyBloomUser') || 'null');
+            if (user && user.email) {
+                return JSON.parse(localStorage.getItem(`simpleCart_${user.email}`) || '[]');
+            }
+            return JSON.parse(localStorage.getItem('simpleCart') || '[]');
         }
         function saveSimpleCart(cart) {
+            const user = JSON.parse(localStorage.getItem('beautyBloomUser') || 'null');
+            if (user && user.email) {
+                localStorage.setItem(`simpleCart_${user.email}`, JSON.stringify(cart));
+            }
             localStorage.setItem('simpleCart', JSON.stringify(cart));
         }
         function updateCartCount() {
+            const userExists = !!localStorage.getItem('beautyBloomUser');
+            if (!userExists) {
+                // Visitors should see an empty cart (0) even if a demo cart exists in storage
+                if (cartCount) {
+                    cartCount.textContent = 0;
+                    cartCount.style.display = 'none';
+                }
+                return;
+            }
+
             const cart = getSimpleCart();
             const total = cart.reduce((s, i) => s + i.quantity, 0);
             if (cartCount) {
@@ -253,6 +291,12 @@
         // Cart icon: open mini-cart modal when items exist, otherwise show empty notice
         if (cartIcon) {
             cartIcon.addEventListener('click', () => {
+                const userExists = !!localStorage.getItem('beautyBloomUser');
+                if (!userExists) {
+                    alert('Please login to view your cart.');
+                    return;
+                }
+
                 const cart = getSimpleCart();
                 if (!cart.length) {
                     alert('Your cart is empty. Add items to proceed to checkout.');
@@ -335,16 +379,24 @@
                     if (!name) { alert('Please enter your full name'); return; }
                     if (users[email]) { alert('An account with this email already exists. Please login.'); return; }
 
-                    // Save new user (for demo only - do not store plain passwords in production)
+                        // Save new user (for demo only - do not store plain passwords in production)
                     users[email] = { name, email, password };
                     localStorage.setItem('beautyBloomUsers', JSON.stringify(users));
 
                     // Set current user
                     localStorage.setItem('beautyBloomUser', JSON.stringify({ name, email }));
+
+                    // Create empty per-user carts and clear shared guest carts so new user starts with 0
+                    ensureUserCarts(email);
+                    syncUserCartsToShared(email);
+
                     if (userInfo) userInfo.style.display = 'flex';
                     if (loginBtn) loginBtn.style.display = 'none';
                     if (userName) userName.textContent = name;
                     if (userAvatar) userAvatar.textContent = name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+                    // Notify other modules/pages to reload user/cart state
+                    window.dispatchEvent(new Event('bb:auth-changed'));
 
                     alert(`Welcome, ${name.split(' ')[0]}! Your account has been created.`);
                     document.body.removeChild(modal);
@@ -354,10 +406,18 @@
                     if (userRecord.password !== password) { alert('Incorrect password.'); return; }
 
                     localStorage.setItem('beautyBloomUser', JSON.stringify({ name: userRecord.name, email }));
+
+                    // Ensure per-user cart exists and sync it to shared keys so other modules can read the cart for this user
+                    ensureUserCarts(email);
+                    syncUserCartsToShared(email);
+
                     if (userInfo) userInfo.style.display = 'flex';
                     if (loginBtn) loginBtn.style.display = 'none';
                     if (userName) userName.textContent = userRecord.name;
                     if (userAvatar) userAvatar.textContent = userRecord.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+                    // Notify other modules/pages to reload user/cart state
+                    window.dispatchEvent(new Event('bb:auth-changed'));
 
                     alert(`Welcome back, ${userRecord.name.split(' ')[0]}!`);
                     document.body.removeChild(modal);
@@ -409,8 +469,16 @@
         function logoutUser() {
             if (!confirm('Are you sure you want to logout?')) return;
             localStorage.removeItem('beautyBloomUser');
+
+            // Clear shared guest carts so next visitor doesn't see previous items
+            clearSharedCarts();
+
             if (userInfo) userInfo.style.display = 'none';
             if (loginBtn) loginBtn.style.display = 'block';
+
+            // Notify other modules/pages to reload user/cart state
+            window.dispatchEvent(new Event('bb:auth-changed'));
+
             alert('You have been logged out.');
         }
 

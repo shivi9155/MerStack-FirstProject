@@ -46,13 +46,16 @@
         const contactForm = document.getElementById('contactForm');
         const faqItems = document.querySelectorAll('.faq-item');
         
-        // Initialize cart from localStorage
+        // Initialize cart from localStorage (per-user)
         function initCart() {
-            const savedCart = localStorage.getItem('beautyBloomCart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                updateCartCount();
+            const savedUser = JSON.parse(localStorage.getItem('beautyBloomUser') || 'null');
+            if (savedUser && savedUser.email) {
+                const per = localStorage.getItem(`beautyBloomCart_${savedUser.email}`);
+                cart = per ? JSON.parse(per) : [];
+            } else {
+                cart = [];
             }
+            updateCartCount();
         }
         
         // Initialize user from localStorage
@@ -60,13 +63,18 @@
             const savedUser = localStorage.getItem('beautyBloomUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
-                updateUserUI();
-                updateCartSidebar();
+            } else {
+                currentUser = null;
             }
+            updateUserUI();
+            updateCartSidebar();
         }
         
-        // Save cart to localStorage
+        // Save cart to localStorage (per-user + shared copy)
         function saveCart() {
+            if (currentUser && currentUser.email) {
+                localStorage.setItem(`beautyBloomCart_${currentUser.email}`, JSON.stringify(cart));
+            }
             localStorage.setItem('beautyBloomCart', JSON.stringify(cart));
         }
         
@@ -475,6 +483,19 @@
                 
                 updateUserUI();
                 saveUser();
+
+                // Ensure per-user carts exist and sync them to shared storage
+                if (currentUser && currentUser.email) {
+                    const email = currentUser.email;
+                    if (!localStorage.getItem(`beautyBloomCart_${email}`)) localStorage.setItem(`beautyBloomCart_${email}`, JSON.stringify([]));
+                    if (!localStorage.getItem(`simpleCart_${email}`)) localStorage.setItem(`simpleCart_${email}`, JSON.stringify([]));
+                    localStorage.setItem('beautyBloomCart', localStorage.getItem(`beautyBloomCart_${email}`));
+                    localStorage.setItem('simpleCart', localStorage.getItem(`simpleCart_${email}`));
+                }
+
+                // Notify other scripts
+                window.dispatchEvent(new Event('bb:auth-changed'));
+
                 showNotification(`Welcome to Beauty & Bloom, ${name.split(' ')[0]}! You can now add items to cart and place orders.`);
                 
                 // Close both modals
@@ -537,12 +558,19 @@
             updateCartSidebar();
             initFAQ();
             
-            // Add some demo items to cart for showcase
-            if (cart.length === 0) {
-                // Add a couple of demo items to cart for demonstration
+            // Add some demo items to cart for showcase (only for logged-in users)
+            if (currentUser && cart.length === 0) {
                 setTimeout(() => {
                     addToCart(1);
                     addToCart(2);
                 }, 500);
             }
+        });
+
+        // React to auth changes made in global script
+        window.addEventListener('bb:auth-changed', () => {
+            initUser();
+            initCart();
+            updateCartSidebar();
+            updateCartCount();
         });
