@@ -16,7 +16,7 @@
                 price: 4299,
                 image: "Images/product3.jpg",
                 description: "Lightweight foundation with a natural, radiant finish that lasts all day.",
-                isNew: true,
+             
                 rating: 4.8
             },
             {
@@ -26,7 +26,7 @@
                 price: 2899,
                 image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=715&q=80",
                 description: "Set of 6 vibrant lipsticks with moisturizing formula and satin finish.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.6
             },
             {
@@ -46,7 +46,7 @@
                 price: 778,
                 image: "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=744&q=80",
                 description: "Elegant floral fragrance with notes of lavender, vanilla, and sandalwood.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.7
             },
             {
@@ -66,7 +66,7 @@
                 price: 249,
                 image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=689&q=80",
                 description: "Liquid highlighter with champagne shimmer for a radiant glow.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.4
             },
             {
@@ -96,7 +96,7 @@
                 price: 799,
                 image: "Images/pr13.jpg",
                 description: "Rich, creamy body lotion with French vanilla scent for silky smooth skin.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.3
             },
             {
@@ -126,7 +126,7 @@
                 price: 104,
                 image: "Images/pr21.jpg",
                 description: "Lightweight hair serum with argan oil to tame frizz and add shine.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.7
             },
             {
@@ -186,7 +186,7 @@
                 price: 24.00,
                 image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=715&q=80",
                 description: "Set of 4 matte lip liners in versatile nude shades.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.3
             },
             {
@@ -226,7 +226,7 @@
                 price: 199,
                 image: "Images/product4.jpg",
                 description: "Potent vitamin C serum to brighten skin and reduce dark spots.",
-                isNew: true,
+                // isNew: true,
                 rating: 4.9
             },
             {
@@ -316,7 +316,7 @@
                 price: 299,
                 image: "Images/pr12.jpg",
                 description: "Detoxifying charcoal mask to absorb impurities and refine pores.",
-                isNew: true,
+            
                 rating: 4.4
             },
             {
@@ -336,7 +336,7 @@
                 price: 250,
                 image: "Images/pr7.jpg",
                 description: "Rich hand cream with shea butter for soft, protected hands.",
-                isNew: true,
+                isNew: false,
                 rating: 4.6
             },
             {
@@ -346,7 +346,7 @@
                 price: 29.00,
                 image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
                 description: "Lightweight serum to shield hair from heat styling and reduce breakage.",
-                isNew: true,
+                isNew: false,
                 rating: 4.5
             },
             {
