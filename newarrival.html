@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Arrivals | Beauty & Bloom | Latest Cosmetics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="newarrival.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-spa logo-icon"></i>
+                <div class="logo-text">Beauty & <span>Bloom</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="newarrival.html" class="active">New Arrivals</a></li>
+                   
+                        <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About</a></li>
+                
+                    <div class="header-actions">
+                        <div class="user-info" id="userInfo">
+                            <div class="user-avatar" id="userAvatar">JD</div>
+                            <div class="user-name" id="userName">Jane Doe</div>
+                        </div>
+                       
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <div class="cart-count" id="cartCount">0</div>
+                        </div>
+                        <button class="login-btn" id="loginBtn">Login</button>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Overlay for cart sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p>Add some products to get started!</p>
+            </div>
+        </div>
+        <div class="cart-login-required" id="cartLoginRequired">
+            <i class="fas fa-lock"></i>
+            <h4>Login Required</h4>
+            <p>Please login to view your cart and place orders</p>
+            <button class="login-btn" id="loginFromCartBtn" style="margin-top: 15px;">Login Now</button>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <span>Total:</span>
+            <span id="totalAmount">₹0.00</span>
+        </div>
+        <button class="cta-btn" id="checkoutBtn" style="width: 100%; display: none;">Proceed to Checkout</button>
+    </div>
+
+    <!-- Login Required Modal -->
+    <div class="login-required-modal" id="loginRequiredModal">
+        <div class="login-required-content">
+            <i class="fas fa-lock"></i>
+            <h3>Login Required</h3>
+            <p>You need to be logged in to add items to your cart and place orders.</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="login-btn" id="loginFromModalBtn">Login Now</button>
+                <button class="login-btn" style="background-color: #ddd; color: var(--dark);" id="closeLoginModalBtn">Continue Browsing</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <div class="new-badge-large">Just In</div>
+                <h1>Discover Our Latest Beauties</h1>
+                <p>Be the first to experience our newest arrivals straight from Paris. Fresh formulas, innovative designs, and limited-edition collections await you.</p>
+                <button class="cta-btn" id="exploreNewBtn">Explore New Arrivals</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Banner -->
+    <section class="new-arrivals-banner">
+        <div class="container">
+            <h2>Fresh from Paris</h2>
+            <p>Our latest collection has arrived! Experience cutting-edge beauty innovations with formulas that push boundaries and designs that inspire.</p>
+        </div>
+    </section>
+
+    <!-- New Arrivals Countdown -->
+    <section class="countdown-section">
+        <div class="container">
+            <h2 class="countdown-title">Limited Time Launch Offers</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            <p style="color: var(--accent); font-weight: 600; margin-bottom: 20px;">Special launch pricing ends soon!</p>
+            <button class="cta-btn" id="shopNowBtn">Shop Now & Save</button>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="new-arrivals-section">
+        <div class="container">
+            <h2 class="section-title">Latest Additions</h2>
+            <div class="new-arrivals-grid" id="newArrivalsGrid">
+                <!-- New arrivals will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Section -->
+    <section class="exclusive-section">
+        <div class="container">
+            <div class="exclusive-content">
+                <h2>Exclusive New Arrivals</h2>
+                <p>Our new arrivals are more than just products—they're experiences. Each item is crafted with precision, passion, and the latest beauty technology to deliver exceptional results.</p>
+                <p>From skincare that transforms to makeup that mesmerizes, discover why beauty enthusiasts worldwide are falling in love with our latest collection.</p>
+                <a href="products.html" class="cta-btn">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="section-title">Be the First to Know</h2>
+                <p>Subscribe to our newsletter and get exclusive early access to new arrivals, special previews, and members-only offers.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="cta-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Beauty & Bloom</h4>
+                    <p>Premium cosmetics that celebrate natural beauty. Our Paris-inspired collection brings luxury and quality to your daily routine.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="index.html#brand-story">Our Story</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Champs-Élysées, Paris</li>
+                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                        <li><i class="fas fa-envelope"></i> info@beautyandbloom.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Beauty & Bloom. All rights reserved. | Designed with passion for beauty</p>
+            </div>
+        </div>
+    </footer>
+
+  
+    <script src="newarrival.html"></script>
+</body>
+</html>

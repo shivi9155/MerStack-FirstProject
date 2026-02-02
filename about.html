@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Beauty & Bloom | Our Story</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="about.css">
+   
+      </head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-spa logo-icon"></i>
+                <div class="logo-text">Beauty & <span>Bloom</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="newarrival.html">New Arrivals</a></li>
+                    
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <div class="header-actions">
+                        <div class="user-info" id="userInfo">
+                            <div class="user-avatar" id="userAvatar">JD</div>
+                            <div class="user-name" id="userName">Jane Doe</div>
+                        </div>
+                       
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <div class="cart-count" id="cartCount">0</div>
+                        </div>
+                        <button class="login-btn" id="loginBtn">Login</button>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+  
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p>Add some products to get started!</p>
+            </div>
+        </div>
+        <div class="cart-login-required" id="cartLoginRequired">
+            <i class="fas fa-lock"></i>
+            <h4>Login Required</h4>
+            <p>Please login to view your cart and place orders</p>
+            <button class="login-btn" id="loginFromCartBtn" style="margin-top: 15px;">Login Now</button>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <span>Total:</span>
+            <span id="totalAmount">$0.00</span>
+        </div>
+        <button class="cta-btn" id="checkoutBtn" style="width: 100%; display: none; background-color: var(--primary); color: white;">Proceed to Checkout</button>
+    </div>
+
+    <!-- Login Required Modal -->
+    <div class="login-required-modal" id="loginRequiredModal">
+        <div class="login-required-content">
+            <i class="fas fa-lock"></i>
+            <h3>Login Required</h3>
+            <p>You need to be logged in to add items to your cart and place orders.</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="login-btn" id="loginFromModalBtn">Login Now</button>
+                <button class="login-btn" style="background-color: #ddd; color: var(--dark);" id="closeLoginModalBtn">Continue Browsing</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Story</h1>
+            <p>Discover the journey of Beauty & Bloom, from a small Parisian boutique to a global beauty destination celebrating natural beauty and Parisian elegance.</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="container">
+            <h2 class="section-title">Our Humble Beginnings</h2>
+            <div class="story-container">
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Beauty & Bloom Paris Store">
+                </div>
+                <div class="story-content">
+                    <h3>From Paris with Love</h3>
+                    <p>Beauty & Bloom was founded in 2010 by childhood friends Amélie and Sophie, who shared a passion for beauty and a vision to create cosmetics that celebrated natural beauty rather than masking it.</p>
+                    <p>Starting with a small boutique on a charming side street in Paris, they curated a collection of high-quality, natural-ingredient cosmetics that quickly gained popularity among Parisian women seeking elegance with simplicity.</p>
+                    <p>What began as a local treasure soon attracted attention from beauty enthusiasts worldwide, drawn to the brand's Parisian elegance, commitment to quality, and philosophy that beauty should bloom naturally.</p>
+                    <p>Today, with our flagship store on the iconic Champs-Élysées, we continue to honor our founders' vision while expanding our reach to bring Parisian beauty to the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section class="our-mission">
+        <div class="container">
+            <div class="mission-container">
+                <div class="mission-content">
+                    <h3>Our Philosophy</h3>
+                    <p>At Beauty & Bloom, we believe that true beauty comes from confidence and self-care. Our mission is to provide products that enhance your natural features while caring for your skin.</p>
+                    <p>We reject the notion that beauty requires complexity. Instead, we embrace simplicity, quality, and the power of natural ingredients to create products that perform beautifully while respecting your skin.</p>
+                    <p>Every product in our collection is developed with our three core principles in mind: purity, performance, and pleasure. We carefully select each ingredient, test every formula, and design each package with intention.</p>
+                    <p>Our commitment extends beyond beauty products—we're dedicated to sustainable practices, ethical sourcing, and giving back to our community through various initiatives.</p>
+                </div>
+                <div class="mission-image">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Beauty & Bloom Products">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="our-values">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="values-container">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Natural Ingredients</h4>
+                    <p>We prioritize natural, skin-friendly ingredients that are both effective and gentle. Our formulas are free from harsh chemicals and always cruelty-free.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4>Quality First</h4>
+                    <p>Every product undergoes rigorous testing to ensure the highest quality standards. We never compromise on performance or safety.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Empowering Beauty</h4>
+                    <p>We believe beauty should empower, not pressure. Our products are designed to enhance confidence and celebrate individuality.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h4>Sustainability</h4>
+                    <p>We're committed to reducing our environmental footprint through sustainable packaging, ethical sourcing, and responsible manufacturing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="our-team">
+        <div class="container">
+            <h2 class="section-title">Meet Our Founders</h2>
+            <div class="team-container">
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Amélie Laurent">
+                    </div>
+                    <div class="team-info">
+                        <h4>Amélie Laurent</h4>
+                        <div class="position">Co-Founder & Creative Director</div>
+                        <p>With a background in cosmetic chemistry and a passion for natural beauty, Amélie oversees product development and ensures every formula meets our high standards.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c113a1c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sophie Moreau">
+                    </div>
+                    <div class="team-info">
+                        <h4>Sophie Moreau</h4>
+                        <div class="position">Co-Founder & CEO</div>
+                        <p>Sophie brings business acumen and a vision for global beauty to the brand. Her leadership has guided Beauty & Bloom from a local boutique to an international name.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Lucas Dubois">
+                    </div>
+                    <div class="team-info">
+                        <h4>Lucas Dubois</h4>
+                        <div class="position">Head of Sustainability</div>
+                        <p>Lucas leads our sustainability initiatives, ensuring our products and practices respect both people and the planet. He's passionate about creating beauty with a conscience.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Chloé Bernard">
+                    </div>
+                    <div class="team-info">
+                        <h4>Chloé Bernard</h4>
+                        <div class="position">Head of Product Development</div>
+                        <p>Chloé combines scientific expertise with artistic vision to create innovative formulas. Her dedication to research ensures our products stay at the forefront of beauty technology.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section class="sustainability">
+        <div class="container">
+            <div class="sustainability-content">
+                <h3>Our Commitment to Sustainability</h3>
+                <p>At Beauty & Bloom, we believe beauty should never come at the expense of our planet. That's why we've implemented comprehensive sustainability initiatives across every aspect of our business.</p>
+                <p>From responsibly sourced ingredients to eco-friendly packaging, we're constantly working to reduce our environmental impact while maintaining the quality and luxury our customers expect.</p>
+                
+                <div class="sustainability-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Cruelty-Free</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Recycled Packaging</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Natural Ingredients</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1M+</div>
+                        <div class="stat-label">Trees Planted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h3>Experience Beauty & Bloom</h3>
+                <p>Discover our collection of premium cosmetics crafted with passion, quality, and a commitment to natural beauty. Join our community of beauty enthusiasts who believe in celebrating what makes you uniquely beautiful.</p>
+                <a href="products.html" class="cta-btn">Explore Our Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Beauty & Bloom</h4>
+                    <p>Premium cosmetics that celebrate natural beauty. Our Paris-inspired collection brings luxury and quality to your daily routine.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="new-arrivals.html">New Arrivals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Champs-Élysées, Paris</li>
+                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                        <li><i class="fas fa-envelope"></i> info@beautyandbloom.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 10:00 AM - 9:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Beauty & Bloom. All rights reserved. | Designed with passion for beauty</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('wishlistCount');
+            const arr = JSON.parse(localStorage.getItem('beautyBloomWishlist') || '[]');
+            if (el) { el.textContent = arr.length; el.style.display = arr.length > 0 ? 'flex' : 'none'; }
+            const wishlistIcon = document.getElementById('wishlistIcon');
+            if (wishlistIcon) wishlistIcon.addEventListener('click', () => window.location.href = 'wishlist.html');
+        });
+    </script>
+    <script src="about.js"></script>
+
+  
+    </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Checkout — Beauty & Bloom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --primary:#f8b5d1;
+            --accent:#c38eb4;
+            --dark:#5d4a66}
+
+        body{
+            font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;background:#fff9fc;color:#333;margin:0}
+
+        .container{
+            max-width:980px;
+            margin:40px auto;
+            padding:20px
+        }
+        h1{
+            color:var(--dark)}
+        .checkout-grid{
+            display:grid;
+            grid-template-columns:1fr 380px;
+            gap:30px
+        }
+        .card{
+            background:white;
+            border-radius:12px;
+            padding:18px;
+            box-shadow:0 6px 20px rgba(0,0,0,0.06)
+        }
+        .form-row{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px
+        }
+        label{
+            font-weight:600;
+            font-size:14px;
+            margin-bottom:6px;
+            display:block
+        }
+        input.form-control, textarea.form-control, select.form-control{
+            width:100%;
+            padding:10px;
+            border:1px solid #ddd;
+            border-radius:8px
+        }
+        textarea.form-control{
+            min-height:100px
+        }
+        .payment-methods{
+            display:flex;
+            gap:10px;
+            margin-bottom:12px
+        }
+        .pay-option{
+            padding:10px;
+            border:1px solid #eee;
+            border-radius:8px;
+            cursor:pointer
+        }
+        .pay-option.active{
+            border-color:var(--accent);
+            box-shadow:0 6px 20px rgba(195,142,180,0.08)
+        }
+        .order-summary h4{
+            margin-top:0
+        }
+        .order-item{
+            display:flex;
+            justify-content:space-between;
+            padding:8px 0;
+            border-bottom:1px solid #f5f5f5}
+        .total{
+            display:flex;
+            justify-content:space-between;
+            font-weight:800;
+            padding-top:12px}
+        .btn-primary{
+            display:inline-block;
+            background:var(--primary);
+            color:#fff;
+            padding:12px 18px;
+            border-radius:10px;
+            border:none;
+            font-weight:800;
+            cursor:pointer}
+        @media (max-width:880px){
+            .checkout-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout</h1>
+        <div class="checkout-grid">
+            <div>
+                <div class="card">
+                    <h3>Delivery & Payment</h3>
+                    <form id="checkoutForm">
+                        <div class="form-row">
+                            <div>
+                                <label for="fullName">Full name</label>
+                                <input id="fullName" class="form-control" required>
+                            </div>
+                            <div>
+                                <label for="email">Email</label>
+                                <input id="email" class="form-control" type="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top:10px">
+                            <div>
+                                <label for="phone">Phone</label>
+                                <input id="phone" class="form-control" required>
+                            </div>
+                            <div>
+                                <label for="country">Country</label>
+                                <input id="country" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:10px">
+                            <label for="address">Address</label>
+                            <textarea id="address" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="form-row" style="margin-top:10px">
+                            <div>
+                                <label for="city">City</label>
+                                <input id="city" class="form-control" required>
+                            </div>
+                            <div>
+                                <label for="postal">Postal Code</label>
+                                <input id="postal" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:14px">
+                            <label>Payment Method</label>
+                            <div class="payment-methods" id="paymentMethods">
+                                <div class="pay-option active" data-method="cod">Cash on Delivery</div>
+                                <div class="pay-option" data-method="card">Card Payment</div>
+                                <div class="pay-option" data-method="upi">UPI</div>
+                            </div>
+                        </div>
+
+                        <div id="cardFields" style="display:none;margin-top:8px">
+                            <div style="margin-bottom:10px"><label>Card Number</label><input id="cardNumber" class="form-control" maxlength="19" placeholder="1234 5678 9012 3456"></div>
+                            <div class="form-row"><div><label>Expiry (MM/YY)</label><input id="cardExp" class="form-control" placeholder="MM/YY"></div><div><label>CVV</label><input id="cardCvv" class="form-control" maxlength="4" placeholder="123"></div></div>
+                        </div>
+
+                        <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:10px">
+                            <button type="submit" class="btn-primary">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <aside>
+                <div class="card order-summary">
+                    <h4>Order Summary</h4>
+                    <div id="orderItems"></div>
+                    <div class="total"><div>Total:</div><div id="orderTotal">$0.00</div></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Load cart and user
+        function getSimpleCart(){return JSON.parse(localStorage.getItem('simpleCart'))||[]}
+        function clearSimpleCart(){localStorage.removeItem('simpleCart')}
+
+        const cart = getSimpleCart();
+        const orderItemsEl = document.getElementById('orderItems');
+        const orderTotalEl = document.getElementById('orderTotal');
+
+        function renderOrder() {
+            if (!cart.length) { orderItemsEl.innerHTML = '<div style="color:#777">No items in cart.</div>'; orderTotalEl.textContent = '$0.00'; return; }
+            orderItemsEl.innerHTML = cart.map(i => `<div class="order-item"><div>${i.name} × ${i.quantity}</div><div>$${(i.price*i.quantity).toFixed(2)}</div></div>`).join('');
+            const total = cart.reduce((s,i) => s + i.price*i.quantity, 0);
+            orderTotalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        renderOrder();
+
+        // Prefill user if logged in
+        const savedUser = JSON.parse(localStorage.getItem('beautyBloomUser'));
+        if (savedUser) {
+            document.getElementById('fullName').value = savedUser.name || '';
+            document.getElementById('email').value = savedUser.email || '';
+        }
+
+        // Payment method toggles
+        document.getElementById('paymentMethods').addEventListener('click', function(e){
+            const option = e.target.closest('.pay-option'); if (!option) return;
+            document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('active'));
+            option.classList.add('active');
+            const method = option.getAttribute('data-method');
+            document.getElementById('cardFields').style.display = method === 'card' ? 'block' : 'none';
+        });
+
+        // Submit order
+        document.getElementById('checkoutForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            if (!cart.length) { alert('Your cart is empty.'); return; }
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const postal = document.getElementById('postal').value.trim();
+            const country = document.getElementById('country').value.trim();
+            if (!name || !email || !phone || !address) { alert('Please complete required fields'); return; }
+
+            const paymentMethod = document.querySelector('.pay-option.active').getAttribute('data-method');
+            if (paymentMethod === 'card') {
+                const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g,'');
+                const cardExp = document.getElementById('cardExp').value.trim();
+                const cardCvv = document.getElementById('cardCvv').value.trim();
+                if (!/^\d{13,19}$/.test(cardNumber) || !/^\d{2}\/\d{2}$/.test(cardExp) || !/^\d{3,4}$/.test(cardCvv)) { alert('Please enter valid card details'); return; }
+            }
+
+            const total = cart.reduce((s,i) => s + i.price*i.quantity, 0);
+            const order = { id: Date.now(), date: new Date().toLocaleString(), items: cart, total: parseFloat(total.toFixed(2)), name, email, phone, address: { address, city, postal, country }, paymentMethod };
+
+            // Save order to localStorage under user email or guest
+            const ordersKey = `beautyBloomOrders_${email || 'guest'}`;
+            let existing = JSON.parse(localStorage.getItem(ordersKey)) || [];
+            existing.unshift(order);
+            if (existing.length > 10) existing = existing.slice(0,10);
+            localStorage.setItem(ordersKey, JSON.stringify(existing));
+
+            // Clear cart
+            clearSimpleCart();
+
+            alert('Thank you! Your order has been placed successfully.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
